@@ -1,7 +1,9 @@
 {
     "autoload": {
         "psr-0": {
-            "": "src/"
+            "": "src/",
+            "Spotify/RefactoringTask/Test/Unit": "test/",
+            "Spotify/RefactoringTask/Test/Integration": "test/"
         }
     },
     "require": {

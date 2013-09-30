@@ -1,9 +1,11 @@
 <?php
 
+namespace Spotify\RefactoringTask\Test\Unit;
+
 use Spotify\RefactoringTask\BitlyClient;
 use Spotify\RefactoringTask\HttpResponse;
 
-class BitlyClientTest extends PHPUnit_Framework_TestCase
+class BitlyClientTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var PHPUnit_Framework_MockObject_MockObject

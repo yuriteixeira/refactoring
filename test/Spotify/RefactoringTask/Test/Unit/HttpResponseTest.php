@@ -1,8 +1,10 @@
 <?php
 
+namespace Spotify\RefactoringTask\Test\Unit;
+
 use Spotify\RefactoringTask\HttpResponse;
 
-class HttpResponseTest extends PHPUnit_Framework_TestCase
+class HttpResponseTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var HttpResponse

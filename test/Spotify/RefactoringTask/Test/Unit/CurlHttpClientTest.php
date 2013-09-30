@@ -1,5 +1,7 @@
 <?php
 
+namespace Spotify\RefactoringTask\Test\Unit;
+
 use Spotify\RefactoringTask\CurlHttpClient;
 use Spotify\RefactoringTask\HttpClientInterface;
 use Spotify\RefactoringTask\HttpException;

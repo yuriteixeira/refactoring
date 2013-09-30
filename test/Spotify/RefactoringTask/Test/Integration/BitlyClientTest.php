@@ -1,11 +1,13 @@
 <?php
 
+namespace Spotify\RefactoringTask\Test\Integration;
+
 use Spotify\RefactoringTask\BitlyClient;
 use Spotify\RefactoringTask\CurlHttpClient;
 use Spotify\RefactoringTask\HttpClientInterface;
 use Spotify\RefactoringTask\HttpResponse;
 
-class BitlyClientTest extends PHPUnit_Framework_TestCase
+class BitlyClientTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var CurlHttpClient
