@@ -8,19 +8,39 @@ use Spotify\RefactoringTask\HttpResponse;
 class BitlyClientTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    public $curlHttpClientMock;
+    private $curlHttpClientMock;
 
     /**
      * @var BitlyClient
      */
-    public $bitlyClient;
+    private $bitlyClient;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $cacheMock;
 
     public function setUp()
     {
         $this->curlHttpClientMock = $this->getMock('\Spotify\RefactoringTask\CurlHttpClient');
-        $this->bitlyClient = new BitlyClient($this->curlHttpClientMock, 'ee063c455bce24d14d21b5e17ec8dc76ef44f294');
+        $this->cacheMock = $this->getMockBuilder('\Spotify\RefactoringTask\FilesystemCache')->disableOriginalConstructor()->getMock();
+
+        $this->cacheMock
+            ->expects($this->any())
+            ->method('set');
+
+        $this->cacheMock
+            ->expects($this->any())
+            ->method('get')
+            ->will($this->returnValue(''));
+
+        $this->bitlyClient = new BitlyClient(
+            $this->curlHttpClientMock,
+            'ee063c455bce24d14d21b5e17ec8dc76ef44f294',
+            $this->cacheMock
+        );
     }
 
     public function testShortenWithUnsuccessfullResponseStatusCodeScenario()

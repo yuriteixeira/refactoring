@@ -15,7 +15,12 @@ class BitlyClient
     /**
      * @var string
      */
-    private $token = 'ee063c455bce24d14d21b5e17ec8dc76ef44f294';
+    private $token;
+
+    /**
+     * @var CacheInterface
+     */
+    private $cache;
 
     /**
      * @var string
@@ -25,10 +30,13 @@ class BitlyClient
     /**
      * @param HttpClientInterface $httpClient An instance of a HttpClientInterface implementation
      * @param $token Bitly Dev Token
+     * @param CacheInterface $cache
      */
-    public function __construct(HttpClientInterface $httpClient, $token) {
+    public function __construct(HttpClientInterface $httpClient, $token, CacheInterface $cache)
+    {
         $this->httpClient = $httpClient;
         $this->token = $token;
+        $this->cache = $cache;
     }
 
     /**
@@ -41,7 +49,16 @@ class BitlyClient
      * @throws BitlyException
      * @throws HttpException
      */
-    public function shorten($longUrl) {
+    public function shorten($longUrl)
+    {
+        $cacheKey = sha1($longUrl);
+        $cachedContent = $this->cache->get($cacheKey);
+
+        // TODO: Implement cache invalidation.
+        if ($cachedContent) {
+            return $cacheKey;
+        }
+
         $endpointUrl = "{$this->apiUrl}/shorten?access_token={$this->token}&longUrl=" . urlencode($longUrl);
 
         $this->httpClient->setUrl($endpointUrl);
@@ -64,6 +81,8 @@ class BitlyClient
         if ($isJsonResponseInvalid) {
             throw new BitlyException('Invalid response');
         }
+
+        $this->cache->set($cacheKey, $jsonResponse->data->url);
 
         return $jsonResponse->data->url;
     }

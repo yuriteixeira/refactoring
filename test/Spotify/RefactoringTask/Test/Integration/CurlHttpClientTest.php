@@ -1,6 +1,6 @@
 <?php
 
-namespace Spotify\RefactoringTask\Test\Unit;
+namespace Spotify\RefactoringTask\Test\Integration;
 
 use Spotify\RefactoringTask\CurlHttpClient;
 use Spotify\RefactoringTask\HttpClientInterface;

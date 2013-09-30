@@ -4,6 +4,7 @@ namespace Spotify\RefactoringTask\Test\Integration;
 
 use Spotify\RefactoringTask\BitlyClient;
 use Spotify\RefactoringTask\CurlHttpClient;
+use Spotify\RefactoringTask\FilesystemCache;
 use Spotify\RefactoringTask\HttpClientInterface;
 use Spotify\RefactoringTask\HttpResponse;
 
@@ -22,7 +23,8 @@ class BitlyClientTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->curlHttpClient = new CurlHttpClient();
-        $this->bitlyClient = new BitlyClient($this->curlHttpClient, 'ee063c455bce24d14d21b5e17ec8dc76ef44f294');
+        $filesystemCache = new FilesystemCache(['cache_dir' => '~/tmp/spotify-refactoring-task/cache']);
+        $this->bitlyClient = new BitlyClient($this->curlHttpClient, 'ee063c455bce24d14d21b5e17ec8dc76ef44f294', $filesystemCache);
     }
 
     public function testShorten()
